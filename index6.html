@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Title</title>
+    </head>
+    <body>
+        <div><h1>Event delegation</h1>
+            <ul id = "category">
+                <li id="laptop">laptop</li>
+                <li id="cameras">cameras</li>
+                <li id="shoes">shoes</li>
+            </ul>
+        </div>
+    <script>
+       document.querySelector("#category").addEventListener('click', (e)=>{
+        console.log(e.target.id)
+        if(e.target.tagName === 'LI'){
+            window.location.href = "/" + e.target.id
+        }
+       })
+    </script>
+    </body>
+</html>
