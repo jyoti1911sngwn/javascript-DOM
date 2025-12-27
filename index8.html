@@ -60,11 +60,17 @@
         // }, true)
         document.querySelector('#grandparent').addEventListener('click', (e) => {
             console.log("grandparentclicked")
+        }, false)
+        document.querySelector('#child').addEventListener('click', (e) => {
+            console.log("child");
+            e.stopPropagation(); //stop bubbling up of event
+        }, false)
+        document.querySelector('#parent').addEventListener('click', (e) => {
+            console.log("parent")
+        }, false)
+        document.querySelector('#grandparent').addEventListener('click', (e) => {
+            console.log("grandparentclicked")
         }, true)
-        // document.querySelector('#child').addEventListener('click', (e) => {
-        //     console.log("child");
-        //     e.stopPropagation(); //stop bubbling up of event
-        // }, false)
         document.querySelector('#child').addEventListener('click', (e) => {
             console.log("child");
             e.stopPropagation(); //stop capturing down of event
