@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Title</title>
+    </head>
+    <body>
+        <div id="form">
+            <ul id = "category">
+               <input type="text" id="name" data-uppercase/>
+               <input type="text" id="name"/>
+               <input type="text" id="name" data-uppercase/>
+            </ul>
+        </div>
+    <script>
+      document.querySelector('#form').addEventListener('keyup', (e)=>{
+        if(e.target.dataset.uppercase != undefined){
+            e.target.value = e.target.value.toUpperCase()
+        }
+      })
+    </script>
+    </body>
+</html>
