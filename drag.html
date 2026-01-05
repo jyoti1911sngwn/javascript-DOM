@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        draggable
+    </title>
+    <link href="style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="box"></div>
+    <script>
+        const box = document.getElementById('box')
+        let isDraggable = false
+        let offsetX = 0
+        let offsetY = 0
+       
+        //pick box
+        box.addEventListener('mousedown' ,(e)=>{
+            isDraggable = true
+
+            // clientX - where we clicked
+            // offsetleft - left offset of the box 
+            console.log(e.clientX , box.offsetLeft)
+            offsetX = e.clientX - box.offsetLeft
+
+            console.log(e.clientY , box.offsetTop)
+            offsetY = e.clientY - box.offsetTop
+
+            box.style.cursor = "grabbing"
+        })
+        //move
+        box.addEventListener('mousemove' ,(e)=>{
+            if(!isDraggable) return
+            box.style.left = `${e.clientX - offsetX}px`
+            box.style.top = `${e.clientY - offsetY}px`
+        })
+        //drop it
+        box.addEventListener('mouseup' ,(e)=>{
+            isDraggable = false
+            box.style.cursor = "grab"
+        })
+    </script>
+</body>
+
+</html>
