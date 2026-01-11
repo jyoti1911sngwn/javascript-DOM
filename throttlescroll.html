@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        body {
+            height: 2000px;
+            margin: 0;
+            width: 2000px;
+        }
+
+        #box {
+            height: 100px;
+            position: fixed;
+            top: 0px;
+            left: 50px;
+            width: 100px;
+            background: red;
+            transition: transform 0.1s linear;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <script>
+
+        function throttle(func, limit) {
+            let lastFunc;
+            let lastRan;
+
+            return function (...args) {
+                //this - context
+                if (!lastRan) {
+                    func.apply(this, args);
+                    lastRan = Date.now();
+                } else {
+                    clearTimeout(lastFunc);
+                    lastFunc = setTimeout(function () {
+                        if ((Date.now() - lastRan) >= limit) {
+                            func.apply(this, args);
+                            lastRan = Date.now();
+                        }
+                    }, limit - (Date.now() - lastRan));
+                }
+            };
+        }
+
+        const box = document.getElementById('box');
+
+        function onScroll() {
+            const scrollY = window.scrollY;
+            box.style.transform = `translateY(${scrollY}px)`;
+        }
+
+        window.addEventListener('scroll', throttle(onScroll, 100));
+    </script>
+</body>
+
+</html>

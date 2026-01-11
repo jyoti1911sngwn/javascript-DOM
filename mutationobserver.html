@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head></head>
+
+<body>
+    <h1>MutationObserver lets you watch changes in the DOM without polling.</h1>
+    <ul>
+        It can observe:
+        <li>Child node changes</li>
+        <li>Attribute changes</li>
+        <li>Text/content changes</li>
+    </ul>
+    <p>It’s asynchronous and performance-friendly compared to old DOM events.</p>
+    <div id="box" style="padding: 20px; border: 1px solid black;">BOX</div>
+    <p>Uses: Detect DOM changes by third-party scripts
+        &
+        Lazy loading UI updates</p>
+    <script>
+        const target = document.querySelector('#box')
+        const muta = new MutationObserver((mutationList) => {
+            mutationList.forEach((item) => {
+                console.log('Target :::',item.target)
+                console.log('Type :::',item.type)
+            })
+        })
+        muta.observe(target, {
+            childList: true,
+            attributes: true,
+            characterData: true,
+            subtree: true
+        })
+        target.textContent = 'abc';
+        target.setAttribute("data-test", "123");
+        target.appendChild(document.createElement('p'))
+        // muta.disconnect();
+
+
+    </script>
+</body>
+
+</html>

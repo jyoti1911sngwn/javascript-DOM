@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Virtualized List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      height: 400px;
+      width: 300px;
+      border: 1px solid #ccc;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .spacer {
+      position: relative;
+      width: 100%;
+    }
+
+    .item {
+      height: 40px;
+      line-height: 40px;
+      padding-left: 10px;
+      box-sizing: border-box;
+      border-bottom: 1px solid #eee;
+      background: white;
+      position: absolute;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<h3>Virtualized List (10,000 items)</h3>
+
+<div class="container" id="container">
+  <div class="spacer" id="spacer"></div>
+</div>
+
+<script>
+  const container = document.getElementById("container");
+  const spacer = document.getElementById("spacer");
+
+  const TOTAL_ITEMS = 10000;
+  const ITEM_HEIGHT = 40;
+  const VISIBLE_COUNT = Math.ceil(container.clientHeight / ITEM_HEIGHT) + 2;
+  // Fake full height
+  spacer.style.height = TOTAL_ITEMS * ITEM_HEIGHT + "px";
+
+  function render() {
+    const scrollTop = container.scrollTop;
+    const startIndex = Math.floor(scrollTop / ITEM_HEIGHT);
+    const endIndex = Math.min(startIndex + VISIBLE_COUNT, TOTAL_ITEMS);
+
+    spacer.innerHTML = "";
+
+    for (let i = startIndex; i < endIndex; i++) {
+      const div = document.createElement("div");
+      div.className = "item";
+      div.style.transform = `translateY(${i * ITEM_HEIGHT}px)`;
+      div.textContent = "Item " + i;
+      spacer.appendChild(div);
+    }
+  }
+
+  container.addEventListener("scroll", render);
+
+  render(); // initial render
+</script>
+
+</body>
+</html>

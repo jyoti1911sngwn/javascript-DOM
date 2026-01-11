@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Reflow Thrashing Example</title>
+</head>
+
+<body>
+    <p>
+        🔍 What Actually Happens Internally
+        </br>  </br>
+        DOM nodes are created off-screen
+        </br>
+        Browser does zero layout calculations
+        </br>
+        Final appendChild(fragment) moves all nodes at once
+        </br>
+        Fragment becomes empty automatically
+    </p>
+    <ul id="id">heading</ul>
+    <script>
+        // -----------------------reflow repaint---------------------------
+        // for(let i = 0 ; i <5000 ; i++){
+        //     const id = document.querySelector('#id')
+        //     const div = document.createElement('li');
+        //     div.innerHTML = `Item : ${i}`
+        //     id.appendChild(div)
+        // }
+
+        const id = document.querySelector('#id')
+        const frag = document.createDocumentFragment()
+        for (let i = 0; i < 5000; i++) {
+            const div = document.createElement('li');
+            div.innerHTML = `Item : ${i}`
+            frag.appendChild(div)
+        }
+        id.appendChild(frag)
+    </script>
+</body>

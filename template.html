@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mini Templating Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .card {
+      border: 1px solid #ccc;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      width: 250px;
+    }
+  </style>
+</head>
+<body>
+  <h2>User List</h2>
+  <div id="app"></div>
+
+  <script>
+
+    function renderTemplate(template, data) {
+      return template.replace(/\{\{(.*?)\}\}/g, function (_, key) {
+        return data[key.trim()];
+      });
+    }
+
+    const users = [
+      { name: "Jyoti", role: "Frontend Developer" },
+      { name: "Aman", role: "Backend Developer" },
+      { name: "Neha", role: "Full Stack Developer" }
+    ];
+
+    const template = `
+      <div class="card">
+        <h3>{{ name }}</h3>
+        <p>{{ role }}</p>
+      </div>
+    `;
+
+    const html = users.map(user => renderTemplate(template, user)).join("");
+
+    document.getElementById("app").innerHTML = html;
+
+  </script>
+</body>
+</html>
